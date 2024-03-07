@@ -153,11 +153,14 @@ function fn_emojiElementsToPanel(type,panel,quill){
         let customButton = document.querySelector('.bem-' + emoji.name);
         if (customButton) {
             customButton.addEventListener('click', function() {
-                // quill.insertText(range.index, customButton.innerHTML);
-                // quill.setSelection(range.index + customButton.innerHTML.length, 0);
-                // range.index = range.index + customButton.innerHTML.length;
-                quill.insertEmbed(range.index, 'emoji', emoji, Quill.sources.USER);
-                setTimeout(() => quill.setSelection(range.index + 1), 0);
+
+                // Below replaced by Jake Cruse
+                // quill.insertEmbed(range.index, 'emoji', emoji, Quill.sources.USER);
+                quill.insertText(range.index, customButton.innerHTML, Quill.sources.USER);
+                setTimeout(() => {
+                    quill.setSelection(range.index + customButton.innerHTML.length, 0);
+                    range.index = range.index + customButton.innerHTML.length;
+                }, 0);
                 fn_close();
             });
         }
